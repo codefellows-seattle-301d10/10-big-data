@@ -7,8 +7,8 @@
     function justTheGoodProps(obj) {
       return {
         zipCode: obj.properties.zip,
-        neighborhood: !!obj.properties.neighborhood ? obj.properties.neighborhood.split(', ')[0] : null,
-        address: !!obj.properties.address ? obj.properties.address : null,
+        neighborhood: obj.properties.neighborhood ? obj.properties.neighborhood.split(', ')[0] : null,
+        address: obj.properties.address ? obj.properties.address : null,
         coordinates: {
           lat: obj.geometry.coordinates[1],
           lng: obj.geometry.coordinates[0]
@@ -31,7 +31,7 @@
   }
 
 function generateTopFive(obj) {
-  for (neighborhood in obj) {
+  for (var neighborhood in obj) {
     zip.topFive.push({
       neighborhood: neighborhood,
       totalZips: obj[neighborhood]

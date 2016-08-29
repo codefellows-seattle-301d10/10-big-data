@@ -3,25 +3,25 @@
   neighborhoodTotals = {};
   zip.topFive = [];
 
-  getData = function() {
-    function justTheGoodProps(obj) {
-      return {
-        zipCode: obj.properties.zip,
-        neighborhood: obj.properties.neighborhood ? obj.properties.neighborhood.split(', ')[0] : null,
-        address: obj.properties.address ? obj.properties.address : null,
-        coordinates: {
-          lat: obj.geometry.coordinates[1],
-          lng: obj.geometry.coordinates[0]
-        }
-      }
-    }
-
+  function getData() {
     $.getJSON('/data/manhattan.json', function(data) {
       data.features.map(justTheGoodProps)
       .forEach(buildZipsDictionary);
       generateTopFive(neighborhoodTotals);
     });
   };
+  
+  function justTheGoodProps(obj) {
+    return {
+      zipCode: obj.properties.zip,
+      neighborhood: obj.properties.neighborhood ? obj.properties.neighborhood.split(', ')[0] : null,
+      address: obj.properties.address ? obj.properties.address : null,
+      coordinates: {
+        lat: obj.geometry.coordinates[1],
+        lng: obj.geometry.coordinates[0]
+      }
+    }
+  }
 
   function buildZipsDictionary(zipObj) {
     curNeighb = zipObj.neighborhood;
